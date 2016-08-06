@@ -1,13 +1,13 @@
 <?php /* Template Name: 登録 */
+http_response_code(201);
 ?>
 
-探索中...
 
 
 <?php
 
-$sid = "0123456789";
-$venue = "北部食堂";
+$sid = $_GET['sid'];
+$venue = $_GET['venue'];
 
 $ticket = array();
 $ticket['post_status'] = 'publish';
@@ -24,7 +24,7 @@ wp_set_object_terms($post_id, $venue, 'venue', true);
 
 $query = new WP_Query(array('venue' => $venue));
 $numTickets = $query->found_posts;
-print_r($query);
-echo "num tickets: $numTickets";
-
+// print_r($query);
+// echo "num tickets: $numTickets";
+echo json_encode($ticket);
 ?>
