@@ -21,5 +21,6 @@ foreach($tickets as $ticket){
   $arr[$i] = $ticket;
   $i++;
 }
+header("Access-Control-Allow-Origin: *");
 echo json_encode($arr);
 ?>
