@@ -1,8 +1,5 @@
-<?php /* Template Name: 登録 */
-http_response_code(201);
+<?php /* Template Name: post_ticket */
 ?>
-
-
 
 <?php
 
@@ -26,5 +23,10 @@ $query = new WP_Query(array('venue' => $venue));
 $numTickets = $query->found_posts;
 // print_r($query);
 // echo "num tickets: $numTickets";
+$result_url =  home_url('/') . "result?sid=$sid&venue=$venue";
+echo $result_url;
 echo json_encode($ticket);
 ?>
+<script type="text/javascript">
+window.location.replace('<?php echo $result_url; ?>');
+</script>

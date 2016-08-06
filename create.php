@@ -1,4 +1,4 @@
-<?php /* Template Name: new */
+<?php /* Template Name: create */
 $sid_num = 8;
 
 $sid = $_GET['sid'];
