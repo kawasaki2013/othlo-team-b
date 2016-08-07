@@ -40,16 +40,74 @@ function loadTickets(){
           var realtime = new Date();
           var dt1 = new Date(realtime.getFullYear(),realtime.getMonth(),realtime.getDate(),realtime.getHours(),realtime.getMinutes(),realtime.getSeconds());
           console.log("現在時刻dt1=",dt1);
-          var dt2 = new Date(data[i].post_date);
-          console.log("post_date=",dt2);
+
+//Safariに応
+          var post_date = data[i].post_date;
+          // console.log(post_date);
+          var getyear = post_date.slice(0,4);
+          var getmonth = post_date.slice(5,7);
+          var getday = post_date.slice(8,10);
+          var gethours = post_date.slice(11,13);
+          var getminute = post_date.slice(14,16);
+          var getseconds = post_date.slice(17,19);
+
+          var dt2 = new Date(getyear,getmonth-1,getday,gethours,getminute,getseconds);
+          // console.log(dt2);
+          // console.log("post_date=",dt2);
           var diff = Math.floor((dt1-dt2)/1000); //差を秒で取得
 
-          if (diff>60) {//60秒より多い場合
-              $('.nameData').prepend("<li><span class='sid'>" + data[i].post_author +"</span><span class='dates'>"+ Math.floor(diff/60) + "分前の投稿</span></li>");
-          }else {
-              $('.nameData').prepend("<li><span class='sid'>" + data[i].post_author +"</span><span class='dates'>"+ diff + "秒前の投稿</span></li>");
+// 学籍番  学部学年出席番号に分ける作業------------------------
+          var stdnum = data[i].post_author;
+          // 学部(2)年度(2)番号(2)(一部チェックディジット)
+          var gakubu = stdnum.charAt(0);
+          var gakunen = stdnum.slice(1,3);
+          var person = stdnum.slice(3,4);
+          var Gakubu; var Gakunen;
+
+          switch (gakubu) {
+              case '1':
+                  Gakubu = "文学部";
+                  break;
+              case '2':
+                  Gakubu = "経済学部";
+                  break;
+              case '3':
+                  Gakubu = "法学部";
+                  break;
+              case '4':
+                  Gakubu = "教育学部";
+                  break;
+              case '5':
+                  Gakubu = "医学部";
+                  break;
+              case '6':
+                  Gakubu = "情報文化学部";
+                  break;
+              case '7':
+                  Gakubu = "理学部";
+                  break;
+              case '8':
+                  Gakubu = "工学部";
+                  break;
+              case '9':
+                  Gakubu = "農学部";
+                  break;
+              default:
+                  Gakubu = "【学部不明】";
+              }
+// ------------------------------------------------------
+
+          if(diff>60){  //60秒より多い場合
+              $('.nameData').prepend("<li><span class='sid'>"+Gakubu+" 20"+gakunen+"年度入学</span><span class='dates'>"+ Math.floor(diff/60) + "分前の投稿</span></li>");
+          }else{              //60秒に満たない場合
+              $('.nameData').prepend("<li><span class='sid'>"+Gakubu+" 20"+gakunen+"年度入学</span><span class='dates'>"+ diff + "秒前の投稿</span></li>");
           }
-          // $('.nameData').append("<li>" + data[i].post_author + "</li>")
+          // if (diff>60) {//60秒より多い場合
+          //     $('.nameData').prepend("<li><span class='sid'>" + data[i].post_author +"</span><span class='dates'>"+ Math.floor(diff/60) + "分前の投稿</span></li>");
+          // }else {
+          //     $('.nameData').prepend("<li><span class='sid'>" + data[i].post_author +"</span><span class='dates'>"+ diff + "秒前の投稿</span></li>");
+          // }
+          // // $('.nameData').append("<li>" + data[i].post_author + "</li>")
         });
         setTimeout(loadTickets, 5000);
       }
