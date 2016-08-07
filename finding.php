@@ -12,7 +12,7 @@ $term = get_term_by('name', $venue, 'venue');
   <h1><?php echo $venue;?>を設定</h1>
 <input type="hidden" name="term_id" value="<?php echo $term->term_id; ?>">
 <input type="text" name="comment" id="venue-comment">
-<input type="button" id="update_venue-btn" value="設定する" style="cursor: pointer;">
+<input type="button" id="update_venue-btn" value="設定する">
 
 
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -35,7 +35,7 @@ $(document).ready(function(){
         $('#update_venue-btn').val('設定完了！').attr('disabled', 'disabled');
         window.location.href='<?php echo home_url('/')?>result<?php echo "?sid=$sid&venue=$venue"; ?>';
       }
-    });
+    }).css('cursor', 'pointer');
   });
 });
 </script>
