@@ -82,7 +82,7 @@ h1{
   background-image: url("images/05_simekitta.png");
 }
 
-#venue-comment{
+.input-large{
   display: block;
   width: 245px;
   height: 45px;
@@ -93,6 +93,12 @@ h1{
   border-radius: 10px;
   font-size: 20px;
   text-align: center;
+}
+select{
+  display: block;
+  margin: 10px auto;
+  font-size: 30px;
+  background: none;
 }
 #update_venue-btn{
   padding: 0;
