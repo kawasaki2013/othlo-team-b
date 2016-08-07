@@ -83,6 +83,6 @@ $(document).ready(function(){
         $('#close-btn').val('募集を締め切りました。').attr('disabled', 'disabled');
       }
     });
-  });
+  }).css('cursor', 'pointer');
 });
 </script>
