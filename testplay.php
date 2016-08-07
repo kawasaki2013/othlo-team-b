@@ -1,4 +1,4 @@
-<?php /* Template Name: finding */
+<?php /* Template Name: testplay */
 get_header();
 
 $sid = $_GET['sid'];
@@ -10,15 +10,15 @@ $term = get_term_by('name', $venue, 'venue');
 //   'description' => 'testcomment'
 // ));
 ?>
-  <h1><?php echo $venue;?>の集合場所</h1>
-<ul id="shugo-note">
-  <li>ごはんを食べたいみんなが集まれるような目印を入力しましょう。</li>
-  <li>食堂の入り口、北側の一番奥の席、など…。</li>
-  <li>他の誰かが設定した場所が選択されるかもしれません。</li>
-</ul>
-<input type="hidden" name="term_id" value="<?php echo $term->term_id; ?>">
-<input type="text" name="comment" id="venue-comment" class="input-large">
-<input type="button" id="update_venue-btn" value="設定する">
+<h1>行き先を入力</h1>
+<select name="venue" id="venue">
+  <option value="北部食堂">北部食堂</option>
+  <option value="南部食堂">南部食堂</option>
+  <option value="ダイニングフォレスト">ダイニングフォレスト</option>
+</select>
+<h1>学籍番号を入力</h1>
+<input type="text" name="sid" id="sid" class="input-large">
+<input type="button" id="update_venue-btn" value="次へ">
 
 
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -29,8 +29,11 @@ $(document).ready(function(){
     // if(!window.confirm('<?php echo $venue;?> の募集を締め切ります。')){
       // return;
     //} 
-    var post_url = "<?php echo home_url('/'); ?>update_venue?term_id=<?php echo $term->term_id; ?>&comment=" + 
-            $("#venue-comment").val();
+    var post_url = "<?php echo home_url('/'); ?>post_ticket?sid=" + 
+                    $("#sid").val() + "&venue=" + 
+                    $("#venue").val();
+    window.location.href = post_url;
+    return;
     console.log(post_url);
     $.ajax({
       type: "POST",
