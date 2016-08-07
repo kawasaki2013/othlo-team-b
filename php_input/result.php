@@ -76,8 +76,9 @@
 // });;
 loadTickets();
 function loadTickets(){
+    console.log('<?php echo 'http://bocci.sakura.ne.jp/bocci/result_json/?venue='.$venue.''; ?>');
 $.ajax({
-    url: '<?php echo 'http://bocci.sakura.ne.jp/bocci/result_json/?venue="'.$venue.'"'; ?>',
+    url: '<?php echo 'http://bocci.sakura.ne.jp/bocci/result_json/?venue='.$venue; ?>',
     dataType: 'json',
     success: function(data){
         console.log(data);
@@ -86,13 +87,21 @@ $.ajax({
             var realtime = new Date();
             var dt1 = new Date(realtime.getFullYear(),realtime.getMonth(),realtime.getDate(),realtime.getHours(),realtime.getMinutes(),realtime.getSeconds());
             console.log("現在時刻dt1=",dt1);
-            var dt2 = new Date(data[i].post_date);
-            
 
-	'2008/5/1 2:00:00 +0900'
+//Safariに対応
+            var post_date = data[i].post_date;
+            // console.log(post_date);
+            var getyear = post_date.slice(0,4);
+            var getmonth = post_date.slice(5,7);
+            var getday = post_date.slice(8,10);
+            var gethours = post_date.slice(11,13);
+            var getminute = post_date.slice(14,16);
+            var getseconds = post_date.slice(17,19);
 
-            console.log("post_date=",data[i].post_date);
-            var diff = Math.floor((dt1-data[i].post_date)/1000); //差を秒で取得
+            var dt2 = new Date(getyear,getmonth-1,getday,gethours,getminute,getseconds);
+            // console.log(dt2);
+            // console.log("post_date=",dt2);
+            var diff = Math.floor((dt1-dt2)/1000); //差を秒で取得
 
 // 学籍番号を学部学年出席番号に分ける作業------------------------
             var stdnum = data[i].post_author;
@@ -136,7 +145,7 @@ $.ajax({
 // --------------------------------------------------------
 
             if (diff>600) {     //10分より多い場合
-                $('.nameData').append("<li>(学籍番号 = " + data[i].post_author +" "+Gakubu+" 20"+gakunen+"年度入学、"+ Math.floor(diff/60) + "分前の投稿)</li>");
+                // $('.nameData').append("<li>(学籍番号 = " + data[i].post_author +" "+Gakubu+" 20"+gakunen+"年度入学、"+ Math.floor(diff/60) + "分前の投稿)</li>");
             }else if(diff>60){  //60秒より多い場合
                 $('.nameData').append("<li>学籍番号 = " + data[i].post_author +" "+Gakubu+" 20"+gakunen+"年度入学、"+ Math.floor(diff/60) + "分前の投稿</li>");
             }else{              //60秒に満たない場合
@@ -158,6 +167,9 @@ $.ajax({
         });
         setTimeout(loadTickets, 1000);
         return;
+    },
+    error: function(){
+        console.log("error!!");
     }
 });
 }
