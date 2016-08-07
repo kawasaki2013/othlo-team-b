@@ -36,21 +36,7 @@ function loadTickets(){
             console.log(data);
             $('.nameData > *').remove();
             $.each(data, function(i){
-                // console.log(data[i].post_date_gmt);
-                // var realtime = new Date();
-                // var dt1 = new Date(realtime.getFullYear(),(realtime.getMonth() + 1),realtime.getDate(),realtime.getHours(),realtime.getMinutes()+10,realtime.getSeconds());
-                // console.log("dt1=",dt1);
-                // var gettime = new Date(data[i].post_date_gmt);
-                // var dt2 = new Date(gettime.getFullYear(),(gettime.getMonth() + 1),gettime.getDate(),gettime.getHours(),gettime.getMinutes(),gettime.getSeconds());
-                // console.log("dt2=",dt2);
-                // if(dt1.getTime() > dt2.getTime()) {
-                //     //処理A
-                //     console.log("dt1");
-                // } else {
-                //     //処理B
-                //     console.log("dt2");
-                // }
-                $('.nameData').append("<li>" + data[i].post_date_gmt + "</li>")
+                $('.nameData').append("<li>" + data[i].post_author + "</li>")
             });
             setTimeout(loadTickets, 5000);
         }
