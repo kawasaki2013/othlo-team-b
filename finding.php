@@ -9,7 +9,7 @@ $term = get_term_by('name', $venue, 'venue');
 //   'description' => 'testcomment'
 // ));
 ?>
-
+  <h1><?php echo $venue;?>を設定</h1>
 <input type="hidden" name="term_id" value="<?php echo $term->term_id; ?>">
 <input type="text" name="comment" id="venue-comment">
 <input type="button" id="update_venue-btn" value="設定する">
